@@ -12,18 +12,22 @@ class MailBot(Bot):
     def work(self):
         # Open New Mail Application instance
         subprocess.call("open /Applications/" + self.app_name, shell=True)
+        time.sleep(5)
 
         # Listen for Command
         while 1:
-            self.command = listen().lower()
-            if "finish" in self.command or "close" in self.command:
+            speak("What will I do?")
+            self.command = listen_for_input().lower()
+            if "finish" in self.command or "close" in self.command:     # Command : "Close App"
                 speak("Closing Mail. See you again")
                 break
 
-            if "new" in self.command:
+            if "new" in self.command:                   # Command : Send new email
                 send_new_email()
-            elif "reply" in self.command:
+                break
+            elif "reply" in self.command:               # Command : Reply Email
                 reply_email()
+                break
             else:
                 speak("I don't know what you want? Can you speak again?")
 
@@ -46,14 +50,18 @@ def send_new_email():
     time.sleep(1)
 
     # Subject of the Email
-    mouse.typewrite("A Test Mail")
+    speak("Which is the subject of the mail?")
+    subject = listen_for_input()
+    mouse.typewrite(subject)
     time.sleep(2)
 
     mouse.press("tab")
     time.sleep(1)
 
     # Email Content
-    mouse.typewrite("Some Content to send?")
+    speak("Which is the content of the mail")
+    content = listen_for_input()
+    mouse.typewrite(content)
     time.sleep(2)
 
     # Send Email
@@ -69,7 +77,9 @@ def reply_email():
     time.sleep(2)
 
     # The Content of Reply Email
-    mouse.typewrite("Reply Content")
+    speak("What will I reply")
+    content = listen_for_input()
+    mouse.typewrite(content)
     time.sleep(2)
 
     # Send Email

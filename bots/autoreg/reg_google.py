@@ -1,19 +1,19 @@
 from ..bot import *
+import time
 import pyautogui as mouse
 import platform
-import time
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
 
 
-class RegFacebookBot(Bot):
+class RegGoogleBot(Bot):
     def __init__(self):
         self.browser = None
         self.toolbar = 0
-        self.url = Constant.FACEBOOK_URL
+        self.url = Constant.GOOGLE_URL
 
     def work(self):
         self.set_up_browser()
@@ -57,11 +57,15 @@ class RegFacebookBot(Bot):
         if platform.system() == "Darwin":
             self.toolbar = self.browser.execute_script(Script.GET_MAC_TOOLBAR_HEIGHT_SCRIPT)
 
+        # Bring New opened browser in front
+        current_window = self.browser.current_window_handle
+        self.browser.switch_to_window(current_window)
+
         time.sleep(2)
 
     def locate_form_root(self):
         # Special Case for Facebook
-        return self.browser.find_element_by_id("reg")
+        return self.browser.find_element_by_id("createaccount")
 
     def handle_text_input(self, form):
         """
@@ -132,45 +136,30 @@ class RegFacebookBot(Bot):
         text_field.clear()
         text_field.send_keys(result)
 
-    @staticmethod
-    def choose_birth_day(form):
-        birth_day = form.find_element_by_id("day")
-        speak("What is your birthday")
-        day = listen_for_input()
-        # Select(birth_day).select_by_value(Profile.BIRTHDAY)
-        Select(birth_day).select_by_value(day)
-
-        birth_month = form.find_element_by_id("month")
-        speak("What is your birth month")
-        month = listen_for_input()          # Input as number
-        # Select(birth_month).select_by_value(Profile.BIRTH_MONTH_N)
-        Select(birth_month).select_by_value(month)
-
-        birth_year = form.find_element_by_id("year")
-        speak("What is your birth year")
-        year = listen_for_input()
-        # Select(birth_year).select_by_value(Profile.BIRTH_YEAR)
-        Select(birth_year).select_by_value(year)
+    def choose_birth_day(self, form):
+        """
+        BirthDay and BirthYear will be handle as normal text input
+        BirthMonth is special drop-down menu with "div" tag.
+        """
+        month = form.find_element_by_id("BirthMonth")
+        ActionChains(self.browser).move_to_element(month).click()\
+            .send_keys(Profile.BIRTH_MONTH_S)\
+            .send_keys(Keys.ENTER)\
+            .perform()
 
     def choose_gender(self, form):
-        # Radio Buttons to choose Gender
-        radio_buttons = form.find_elements_by_xpath("//input[@type='radio']")
-        # The Context That Group Radio Button focus
-        radio_buttons_name = []
-
-        for button in radio_buttons:
-            button_name = button.get_attribute("name").lower()
-            if button_name != "" and button_name not in radio_buttons_name:
-                radio_buttons_name.append(button_name)
-
-        for name in radio_buttons_name:
-            if "sex" in name or "gender" in name:
-                speak("What is your gender")
-                gender = listen_for_input()
-                # sex = form.find_element_by_xpath("//*[text()='" + Profile.GENDER + "']")
-                sex = form.find_element_by_xpath("//*[text()='" + gender + "']")
-                ActionChains(self.browser).move_to_element(sex).click().perform()
+        """
+        Gender is special drop-down menu with "div" tag
+        """
+        gender = form.find_element_by_id("Gender")
+        ActionChains(self.browser).move_to_element(gender).click()\
+            .send_keys(Profile.GENDER)\
+            .send_keys(Keys.ENTER)\
+            .perform()
 
     def submit_form(self, form):
+        """
+        Locate Submit Button with Id Specific for Google form
+        """
+        # submit_btn = form.find_element_by_id("submitbutton")
         pass
-
