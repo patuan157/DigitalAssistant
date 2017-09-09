@@ -47,6 +47,13 @@ class Constant(object):
     FACEBOOK_LOGIN_EMAIL = "clearlove.157@gmail.com"
     FACEBOOK_LOGIN_PASS = "Patuan1996"
 
+    # Default Timeout
+    DEFAULT_TIMEOUT = 6
+
+    # Prefer Personal List
+    PREFER_LIST = ["Phan", "Anh", "Tuan", "Anh Tuan", "Phan Anh Tuan",
+                   "Ng", "Wee", "Keong", "Wee Keong", "Ng Wee Keong",]
+
 
 class Profile(object):
     """
@@ -70,16 +77,23 @@ def speak(text):
     subprocess.call("say " + text, shell=True)
 
 
-def listen():
+def listen(timeout):
     r = sr.Recognizer()
 
     try:
         with sr.Microphone() as source:
-            audio = r.listen(source)
-        audio_text = r.recognize_google(audio_data=audio)
+            audio = r.listen(source=source, timeout=timeout)
+        with open(r"./api/DigitalAssitant-045cf1d74d20.json", "r") as file:
+            credentials_json = file.read()
+        audio_text = r.recognize_google_cloud(audio_data=audio,
+                                              credentials_json=credentials_json,
+                                              preferred_phrases=Constant.PREFER_LIST)
         return audio_text
+    except sr.WaitTimeoutError:
+        return "timeout"
     except sr.UnknownValueError:
-        print("Could not understand audio")
+        return "noise"
+        # print("Could not understand audio")
     except sr.RequestError as e:
         print("Could not request results; {0}".format(e))
 
@@ -87,6 +101,23 @@ def listen():
 def listen_for_input():
     inp = ""
     while inp == "":
-        inp = listen()
+        inp = listen(None)
+
+    return inp
+
+
+def listen_for_input_without_timeout():
+    inp = ""
+    while inp == "" or inp == "noise":
+        inp = listen(None)
+
+    return inp
+
+
+def listen_for_input_with_timeout():
+    # Default 5 seconds timeout
+    inp = ""
+    while inp == "":
+        inp = listen(Constant.DEFAULT_TIMEOUT)
 
     return inp

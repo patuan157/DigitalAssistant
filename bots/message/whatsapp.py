@@ -6,48 +6,67 @@ from pykeyboard import PyKeyboard
 
 class WhatsAppBot(Bot):
     def __init__(self):
-        self.app_name = "WhatsApp.app"
+        self.app_name = "WhatsApp"
         self.command = ""
 
     def work(self):
         # Open New WhatsApp Instance instance
-        subprocess.call("open /Applications/" + self.app_name, shell=True)
+        subprocess.call("open /Applications/" + self.app_name + ".app", shell=True)
         time.sleep(5)           # Ensure the App open and load fully
 
         # Listen for Command
+        speak("What would you like to do")
         while 1:
-            speak("What will I do")
-            self.command = listen_for_input().lower()
+            # Ask for command. Will close if no input (twice)
+            self.command = listen_for_input_with_timeout().lower()
+
+            if self.command == "timeout" or self.command == "noise":
+                speak("I do not receive any command. Are you there?")
+                command = listen_for_input_with_timeout().lower()
+                if command == "timeout" or command == "noise":
+                    speak("You might be busy now. I will close WhatsApp for now")
+                    self.close()
+                    return 0                    # Return status : 0 - No input lead to Closing App
+
             if "finish" in self.command or "close" in self.command:         # Closing Application
-                speak("Closing WhatsApp. See you again")
-                break
+                speak("Closing WhatsApp as you wish")
+                self.close()
+                return 1                        # Return status : 1 - Command Read and execute at least 1
 
             if "send" in self.command and "message" in self.command:        # Command : "Send Message"
                 # Send New Message to Someone
                 send_new_message()
-            elif "chat log" in self.command:            # Command : "Collect Chat Log"
+                speak("Any other action?")
+            elif "check" in self.command and "message" in self.command:     # Command : "Check Message"
                 # Collect Chat Log
-                collect_chat_log()
+                check_message()
+                speak("Any other action?")
             else:
-                speak("I don't know what you want? Can you speak again?")
+                speak("Unable to hear you clearly.  Could you speak again?")
+            time.sleep(0.5)
+
+    def close(self):
+        subprocess.call("osascript -e 'quit app \"" + self.app_name + "\"'", shell=True)
 
 
 def send_new_message():
-    # To Whom which I will send?
-    # user = listen()
-
     # Search That User
     keyboard = PyKeyboard()
+
+    speak("Send to who?")
+    user = listen_for_input_without_timeout()
+    user = "Ng Wee Keong"
+
     keyboard.press_keys(["Command", "F"])
     time.sleep(1)
 
-    mouse.typewrite("Ng Wee Keong")
+    mouse.typewrite(user)
     mouse.press("enter")
     time.sleep(2)
 
     # Insert the Message to Send
-    speak("What will I send?")
-    message = listen_for_input()
+    speak("Speak your text please")
+    message = listen_for_input_without_timeout()
     # message = "This Message to test if the Bot work correctly"
     mouse.typewrite(message)
     time.sleep(2)
@@ -56,7 +75,20 @@ def send_new_message():
     mouse.press("enter")
 
 
-def collect_chat_log():
-    speak("Should I collect Chat Log")
-    pass
+def check_message():
+    # Search That User
+    keyboard = PyKeyboard()
 
+    speak("To whom will I check?")
+    user = listen_for_input_without_timeout()
+    user = "Ng Wee Keong"
+
+    keyboard.press_keys(["Command", "F"])
+    time.sleep(1)
+
+    mouse.typewrite(user)
+    mouse.press("enter")
+    time.sleep(2)
+
+    # Confirm Go Into Chat Log
+    speak("Here is " + user + " messages")

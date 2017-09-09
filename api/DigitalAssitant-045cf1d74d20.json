@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fabled-tractor-177508",
+  "private_key_id": "045cf1d74d20add77cff81eba37be786a374ff99",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDiJbY2t+2eI6IA\n6gUvoDP+X10KqIKsyfX7lXVV40tx1+A2KqE3klpsYLxFNxnMLP4D3oeOdowJVE1M\n+FGU4xcaeYZWEDIILkFANKIxZm68p4mGg/UahxgsI7CBdX666XcAhM3cIIQjDYs6\nGUOt3LAGpr1yH0mrNksrhZHCtkthaXTwm7Jwk890rLd7g6l3HVsRrVf7G5Mwqnk1\nD6pqTkqEDAZx01/2TYXC6hFPK5T/da9og1mJBpQ2VMa868A35XgBsNg9cNF3xCGk\nPQHP6MjCGvnqClFBTM3rdJS5DdWmMYndDIlonvdlAUfO+kb64W/DB9FM433ou379\nv7NmGr8TAgMBAAECggEAH4Nqz1g1FAbaIe96docIB8fpMr2FrCdekEbk+Wl5j20q\nMNIi8hgCYrzeL3T8ss+IPCjL0gXiAMDPHs0xrSIyC33owuBx4GL1s8lB2slv3/km\nuGh2BNLTgv8cLwYc+VXkP93BxA2B7FKMVrXDkRxCKUMd/iOvA91Gf1OXGr+FZJbm\n5LZMjwq8IRriE4Qfk1U9ntzYFIgCz8BYooA5h2wOcu1iy9t+z6fmAjrDjqAoZNHd\nRnk2iSvXzVcEkJHIF7gMXqUfGVhsvuIAyZ1curGt6ebbKdyqxsjfiWc/m5pnPTOy\nVdOlhDjrbGVn5rvephLJR5J8Ipyhz+GUj2KvX/QQhQKBgQDz2uMbE9uoIOMDSjnU\nGG5zw6COAmjH4fAmAUgr+GLV2BBubUS1Y6JIJKgYu6Ji1heirdzJbAIq8NLBfpK/\nlFuuNnMmyM0VsBnlM11LQBoBvXLHd4pdaxoERMMLoUiRQQ07dsUI8+jSw+aZLFvm\nEyTixMtjfqB39KMoAM6SVNznDwKBgQDtaQ3XnYxu7MVXAPhXtGjTULpc+Tbl8cGP\ndfdX4hm2NeO/HYLqkK/RvAF51XXo2FzFiHIzCYKx7LjsYH6hbc+5maOYhbXTUWfz\nQr5RUtAtDS9kcyY4DaevZEOmlh+XBAcRbgfVANuo1Q1GT6at4cutken3u7YYgpj3\nFA+tLiFHvQKBgH5sl9t88x96VVdqTwrX08Ouw3l8ZEhkqbV6aqlpMAx/5RzrB3km\n+4Z9gqy38ptdNYnAq7u9hG4wxoNMlNZAGzv5vL950WGSGArNE2wlApauWmhxYEnI\ncgeOgrRv3Ih5+ls+2y4mDinfKJl29voUKMZskqm1h4pJSaE+sdoJpzEfAoGAJFDi\nni3qcnljgniShJADTPfXWiuBG1GM404PRPFAL6A0s2JnSUxSqMmSjDl77N9T6Z+C\noI3+4QquCvKDzFvI38JBxS4G70lPlmWKSVRapdmTe1El8oMcOHck5hGmyWoDTsY/\nCnU0JLJacnvyqjyU9HsSiCO9qigoD/uQnlQlIR0CgYEAvSBUEBLGAnZr5c5IGv+0\nmhjvJ7NCKi5TiseLD+pOJ0OY0zkw8otoBRKANbJJtbDaA2WBwKvmblXFr8/dV+jq\nfgouBUm+Azkp6cfkHGOcPe/QqojppgtPtkceWbQzVVArz1w0lWDO2iFwDYuaXuv+\nvzUotqRIDdO/VGwvo40UtyE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "anhtuan@fabled-tractor-177508.iam.gserviceaccount.com",
+  "client_id": "113894862979708879821",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/anhtuan%40fabled-tractor-177508.iam.gserviceaccount.com"
+}
