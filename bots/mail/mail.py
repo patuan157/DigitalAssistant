@@ -24,11 +24,12 @@ class MailBot(Bot):
                 speak("I do not receive any command. Are you there?")
                 command = listen_for_input_with_timeout().lower()
                 if command == "timeout" or command == "noise":
-                    speak("You might be busy now. I will close Telegram for now")
+                    speak("You might be busy. I will close Mail for now")
                     self.close()
                     return 0                    # Return status : 0 - No input lead to Closing App
 
-            if "finish" in self.command or "close" in self.command:         # Command : "Close App"
+            if "no" in self.command or "nothing" in self.command or \
+                    "finish" in self.command or "close" in self.command:         # Closing Application
                 speak("Closing Mail as you wish")
                 self.close()
                 return 1
@@ -40,7 +41,7 @@ class MailBot(Bot):
                 check_email()
                 speak("Any other action")
             else:
-                speak("I don't know what you want? Can you speak again?")
+                speak("Unable to hear you clearly.  Could you speak again?")
             time.sleep(0.5)
 
     def close(self):
@@ -56,11 +57,11 @@ def send_new_email():
     # The Destination Email
     speak("To whom will I send?")
     receiver = listen_for_input_without_timeout()
-    receiver = "Phan Anh Tuan"
+    # receiver = "Phan Anh Tuan"
 
-    if receiver == "Ng Wee Keong":
+    if "wee keong" in receiver.lower():
         mouse.typewrite("wkn@gmail.com")
-    elif receiver == "Phan Anh Tuan":
+    elif "tuan" in receiver.lower():
         mouse.typewrite("clearlove.96@gmail.com")
     # mouse.typewrite("clearlove.96@gmail.com")
     time.sleep(2)
@@ -111,24 +112,28 @@ def reply_email():
 
 def check_email():
     # Confirm Navigate down the mail
-    speak("I'm inside your list of email right now")
+    speak("I am inside your list of email right now")
+    # Move mouse to center of screen
+    screen = mouse.size()
+    mouse.moveTo(screen[0]//2, screen[1]//2, duration=0.5)
     while 1:
         action = listen_for_input_without_timeout().lower()
-        if action == "down":
+        if "down" in action or "one" in action or "a" in action:
             mouse.press("down")
-        elif action == "up":
+        elif "up" in action or "two" in action or "b" in action:
             mouse.press("up")
-        elif action == "scroll mail":
-            # Somehow scroll the mail instead the list of mail
-            pass
-        elif action == "reply":
+        elif "scroll" in action or "three" in action or "c" in action:
+            scroll("Down")
+        elif "one" in action:
+            scroll("Up")
+        elif "reply" in action:
             # Reply current email
             reply_email()
-        elif action == "new email":
+        elif "new email" in action:
             # Send new email
             send_new_email()
-        elif action == "finish":
+        elif "finish" in action:
             speak("Finish checking your mail")
             break
         else:
-            speak("I don't know what you want? Can you speak again?")
+            speak("Can you speak again?")

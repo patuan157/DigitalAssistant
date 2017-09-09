@@ -52,7 +52,8 @@ class Constant(object):
 
     # Prefer Personal List
     PREFER_LIST = ["Phan", "Anh", "Tuan", "Anh Tuan", "Phan Anh Tuan",
-                   "Ng", "Wee", "Keong", "Wee Keong", "Ng Wee Keong",]
+                   "Ng", "Wee", "Keong", "Wee Keong", "Ng Wee Keong",
+                   "A", "B", "C"]
 
 
 class Profile(object):
@@ -121,3 +122,14 @@ def listen_for_input_with_timeout():
         inp = listen(Constant.DEFAULT_TIMEOUT)
 
     return inp
+
+
+def scroll(action):
+    # Assume all program line on the middle of the screen
+    # Move the mouse into the center of the screen
+    import pyautogui as mouse
+
+    if action == "Up":
+        mouse.scroll(50)
+    elif action == "Down":
+        mouse.scroll(-50)

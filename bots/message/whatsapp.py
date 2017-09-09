@@ -24,11 +24,12 @@ class WhatsAppBot(Bot):
                 speak("I do not receive any command. Are you there?")
                 command = listen_for_input_with_timeout().lower()
                 if command == "timeout" or command == "noise":
-                    speak("You might be busy now. I will close WhatsApp for now")
+                    speak("You might be busy. I will close WhatsApp for now")
                     self.close()
                     return 0                    # Return status : 0 - No input lead to Closing App
 
-            if "finish" in self.command or "close" in self.command:         # Closing Application
+            if "no" in self.command or "nothing" in self.command or \
+                    "finish" in self.command or "close" in self.command:         # Closing Application
                 speak("Closing WhatsApp as you wish")
                 self.close()
                 return 1                        # Return status : 1 - Command Read and execute at least 1
@@ -55,7 +56,7 @@ def send_new_message():
 
     speak("Send to who?")
     user = listen_for_input_without_timeout()
-    user = "Ng Wee Keong"
+    # user = "Ng Wee Keong"
 
     keyboard.press_keys(["Command", "F"])
     time.sleep(1)
@@ -81,14 +82,20 @@ def check_message():
 
     speak("To whom will I check?")
     user = listen_for_input_without_timeout()
-    user = "Ng Wee Keong"
+    # user = "Ng Wee Keong"
 
     keyboard.press_keys(["Command", "F"])
     time.sleep(1)
 
     mouse.typewrite(user)
+    time.sleep(1)
     mouse.press("enter")
     time.sleep(2)
 
     # Confirm Go Into Chat Log
     speak("Here is " + user + " messages")
+    time.sleep(1)
+    scroll("Up")
+    time.sleep(1)
+    scroll("Down")
+

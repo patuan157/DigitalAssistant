@@ -50,7 +50,7 @@ def main():
 
 
 def speak_practice():
-    speak("Ng Wee Keong")
+    speak("up")
     while 1:
         inp = (listen_for_input_without_timeout())
         print(inp)
