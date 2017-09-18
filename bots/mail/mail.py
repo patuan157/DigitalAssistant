@@ -21,10 +21,10 @@ class MailBot(Bot):
             self.command = listen_for_input_with_timeout().lower()
 
             if self.command == "timeout" or self.command == "noise":
-                speak("I do not receive any command. Are you there?")
+                speak("I did not hear you. Are you there?")
                 command = listen_for_input_with_timeout().lower()
                 if command == "timeout" or command == "noise":
-                    speak("You might be busy. I will close Mail for now")
+                    speak("Looks like you are busy now. I will wait until you speak")
                     self.close()
                     return 0                    # Return status : 0 - No input lead to Closing App
 
@@ -55,7 +55,7 @@ def send_new_email():
     time.sleep(2)
 
     # The Destination Email
-    speak("To whom will I send?")
+    speak("To whom should I send?")
     receiver = listen_for_input_without_timeout()
     # receiver = "Phan Anh Tuan"
 
@@ -101,7 +101,7 @@ def reply_email():
     time.sleep(2)
 
     # The Content of Reply Email
-    speak("What will I reply")
+    speak("What should I reply")
     content = listen_for_input_without_timeout()
     mouse.typewrite(content)
     time.sleep(2)
@@ -118,11 +118,11 @@ def check_email():
     mouse.moveTo(screen[0]//2, screen[1]//2, duration=0.5)
     while 1:
         action = listen_for_input_without_timeout().lower()
-        if "down" in action or "one" in action or "a" in action:
+        if "down" in action or "next" in action or "a" in action :
             mouse.press("down")
-        elif "up" in action or "two" in action or "b" in action:
+        elif "up" in action or "previous" in action or "b" in action:
             mouse.press("up")
-        elif "scroll" in action or "three" in action or "c" in action:
+        elif "scroll" in action or "one" in action or "c" in action:
             scroll("Down")
         elif "one" in action:
             scroll("Up")

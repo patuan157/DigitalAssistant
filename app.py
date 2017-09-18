@@ -12,7 +12,7 @@ from bots.bot import *
 
 def main():
     time.sleep(1)
-    speak("Hello. Welcome to Digital Assistant")
+    speak("Hello. Welcome to Johnson, your Digital Assistant")
     time.sleep(1)
     speak("What can I help you?")
     status = 1                              # 1 : With Timeout and 0 : Without Timeout
@@ -25,10 +25,10 @@ def main():
             # Handle Un-response case
             # Will repeat to ask 1 time and chill after that
             if command == "timeout" or command == "noise":
-                speak("I do not receive any command. Are you there?")
+                speak("I did not hear you. Are you there?")
                 command = listen_for_input_with_timeout().lower()
                 if command == "timeout" or command == "noise":
-                    speak("You might be busy now. I will wait here until you talk")
+                    speak("Looks like you are busy now. I will wait until you speak")
                     command = listen_for_input_without_timeout().lower()
 
         # To a certain point, you will receive a command input
@@ -39,12 +39,12 @@ def main():
             break
         elif bot == "Unknown Command":
             time.sleep(1)
-            speak("Can you repeat command ?")
+            speak("Sorry, can you repeat?")
         else:
             status = bot.work()
             time.sleep(1)
             if status == 0:
-                speak("I will wait here until you are not busy anymore")
+                speak("Looks like you are busy now. I will wait until you speak")
             elif status == 1:
                 speak("What else can I help you?")
 

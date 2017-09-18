@@ -21,10 +21,10 @@ class TelegramBot(Bot):
             self.command = listen_for_input_with_timeout().lower()
 
             if self.command == "timeout" or self.command == "noise":
-                speak("I do not receive any command. Are you there?")
+                speak("I did not hear you. Are you there?")
                 command = listen_for_input_with_timeout().lower()
                 if command == "timeout" or command == "noise":
-                    speak("You might be busy. I will close Telegram for now")
+                    speak("Looks like you are busy now. I will wait until you speak")
                     self.close()
                     return 0                    # Return status : 0 - No input lead to Closing App
 
